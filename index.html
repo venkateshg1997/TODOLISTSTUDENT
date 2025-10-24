@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+ 
+    .error {
+      color: red;
+      font-size: 0.9em;
+      margin-top: -8px;
+      margin-bottom: 8px;
+    }
+    button {
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+        button:disabled {
+      background-color: #aaa;
+      cursor: not-allowed;
+    }
+</style>
+<body>
+  <h1>Student Form</h1>
+ <table border="2">
+  <tr>
+    <th>Name:</th>
+    <td><input type="text" id="name"></td>
+  </tr>
+  <tr>
+    <th>Age:</th>
+    <td><input type="text" id="age"></td>
+  </tr>
+  <tr>
+    <th id="Gender">Gender:</th>
+    <td><input type="radio" id="male" name="Gender" value="male">
+    <label id="male">Male</label>
+    <input type="radio" id="female" name="Gender" value="female">
+    <label id="female">Female</label></td>
+  </tr>
+  <tr>
+    <th>Course:</th>
+    <td> <select id="course" name="course">
+    <option value="">-- Select a Course --</option>
+    <option value="java">Java Programming</option>
+    <option value="web">Web Development</option>
+    <option value="db">Database Management</option>
+    <option value="ai">Artificial Intelligence</option>
+  </select></td>
+  </tr>
+  <tr>
+    <th>Email:</th>
+    <td><input type="email" id="email"></td>
+  </tr>
+  <tr>
+    <th colspan="2"><button type="submit" id="btn" disabled>Submit</button></th>
+  </tr>
+</table>
+<br>
+<br>
+
+<table id="container" border="2">
+
+  <h1>Student Details</h1>
+<tr>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Gender</th>
+    <th>Course</th>
+    <th>Email</th>
+    <th>Action</th>
+</tr>
+
+</table>
+
+<script>
+
+    const name = document.getElementById('name');
+    const age = document.getElementById('age');
+    const course = document.getElementById('course');
+    const email = document.getElementById('email');
+    const btn = document.getElementById('btn');
+    const genderRadios = document.querySelectorAll('input[name="Gender"]');
+
+   
+    btn.disabled = true;
+
+    function checkFormFilled() {
+      const genderSelected = document.querySelector('input[name="Gender"]:checked');
+      if (
+        name.value.trim() !== '' &&
+        age.value.trim() !== '' &&
+        course.value.trim() !== '' &&
+        email.value.trim() !== '' &&
+        genderSelected
+      ) {
+        btn.disabled = false;
+      } else {
+        btn.disabled = true;
+      }
+    }
+
+  
+    name.addEventListener('input', checkFormFilled);
+    age.addEventListener('input', checkFormFilled);
+    course.addEventListener('input', checkFormFilled);
+    email.addEventListener('input', checkFormFilled);
+    genderRadios.forEach(radio => {
+      radio.addEventListener('change', checkFormFilled);
+    });
+ 
+ btn.addEventListener('click' , function(){
+ var name = document.getElementById('name')
+ var age = document.getElementById('age')
+ var gender = document.querySelector('input[name="Gender"]:checked')
+ var genvalue=gender ? gender.value : "Not Selected"
+ var course = document.getElementById('course')
+ var email = document.getElementById('email')
+ var btn = document.getElementById('btn')
+    var newrow=document.createElement('tr')
+    var td1=document.createElement('td')
+    var td2=document.createElement('td')
+    var td3=document.createElement('td')
+    var td4=document.createElement('td')
+    var td5=document.createElement('td')
+    var td6=document.createElement('td')
+    td1.textContent=name.value
+    td2.textContent=age.value
+    td3.textContent=genvalue
+    td4.textContent=course.value
+    td5.textContent=email.value
+    td6.innerHTML='<button onclick='+' deleteItem(event)>delete</button>'
+    newrow.append(td1,td2,td3,td4,td5,td6);
+    document.getElementById('container').append(newrow);
+    
+
+ })
+
+
+ function deleteItem(){ 
+    event.target.closest('tr').remove()
+    
+
+ }
+ 
+
+</script>
+
+
+
+    
+</body>
+</html>
+
+
